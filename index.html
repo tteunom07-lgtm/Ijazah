@@ -1,30 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi Elektronik Ijazah - PDDikti</title>
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            // Membaca karakter setelah tanda pagar (#)
-            const cekPddikti = window.location.hash;
-            if (cekPddikti !== "#pddikti=usk_verify_ijazahtte2025") {
-                document.body.innerHTML = "<div style='text-align:center;padding:50px;font-family:sans-serif;'><h1 style='color:#d32f2f;'>🚫 AKSES DITOLAK</h1><p>Dokumen tidak dapat diakses secara manual. Silakan lakukan pemindaian ulang pada QR Code resmi untuk memverifikasi.</p></div>";
-            }
-        });
-    </script>
-    <style>
-        body { font-family: sans-serif; text-align: center; margin-top: 50px; background-color: #f5f5f5; }
-        .container { background: white; padding: 30px; display: inline-block; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h2 { color: #0056b3; }
-        .status { color: green; font-weight: bold; }
-    </style>
+    <title>Akses Ditolak</title>
 </head>
-<body>
-    <div class="container">
-        <h2>SISTEM VERIFIKASI IJAZAH ELEKTRONIK</h2>
-        <p>Status Dokumen: <span class="status">✓ TERVERIFIKASI ASLI (USK)</span></p>
-        <p>Data ijazah berhasil dicocokkan dengan pangkalan data PDDikti Kemendikbudristek.</p>
-    </div>
+<body style="text-align:center;padding:50px;font-family:sans-serif;">
+    <h1 style="color:#d32f2f;">🚫 AKSES DITOLAK</h1>
+    <p>Dokumen tidak dapat diakses secara manual. Silakan lakukan pemindaian ulang pada QR Code resmi untuk memverifikasi.</p>
 </body>
 </html>
