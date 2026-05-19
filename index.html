@@ -1,509 +1,117 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Verifikasi Ijazah Digital - Universitas Syiah Kuala</title>
+    <style>
+        :root { --usk-blue: #0056b3; --usk-gold: #ffc107; --usk-dark: #003366; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 10px; }
+        
+        /* REPLIKA TAMPILAN VERIFIKASI KAMPUS USK ASLI SUPER RAPI */
+        .usk-verif-page { max-width: 650px; margin: 15px auto; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #ddd; }
+        .usk-header { background-color: var(--usk-blue); color: white; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--usk-gold); }
+        .usk-header-left { display: flex; align-items: center; gap: 12px; }
+        .usk-header-left img { width: 50px; height: 50px; }
+        .usk-header-left h2 { margin: 0; font-size: 16px; font-weight: bold; letter-spacing: 0.5px; }
+        .usk-header-left p { margin: 2px 0 0 0; font-size: 10px; opacity: 0.9; }
+        .usk-header-right { text-align: right; font-size: 10px; opacity: 0.9; line-height: 1.3; }
+        
+        .content-body { padding: 20px; }
+        .alert-success-box { background-color: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 6px; padding: 12px 15px; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .badge-check { width: 28px; height: 28px; background: #4caf50; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; }
+        .badge-text h4 { margin: 0; color: #2e7d32; font-size: 14px; font-weight: bold; }
+        .badge-text p { margin: 2px 0 0 0; color: #424242; font-size: 11px; }
+        
+        .block-title { font-size: 12px; font-weight: bold; color: var(--usk-blue); border-bottom: 2px solid #e0e0e0; padding-bottom: 4px; margin: 20px 0 10px 0; letter-spacing: 0.5px; }
+        .info-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 15px; background: #fff; }
+        .info-table td { padding: 7px 5px; vertical-align: top; }
+        .info-table td:first-child { width: 38%; color: #616161; }
+        .info-table td:nth-child(2) { width: 4%; color: #616161; }
+        .info-table td:last-child { font-weight: 600; color: #111; }
+        
+        .tte-box { display: flex; align-items: center; justify-content: space-between; background: #f9f9f9; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0; font-size: 11px; margin-top: 20px; }
+        .tte-left { display: flex; align-items: center; gap: 10px; }
+        .tte-left strong { color: #2e7d32; display: block; margin-bottom: 2px; }
+        .tte-box img { width: 45px; height: 45px; }
+        
+        /* Tombol PDDikti */
+        .btn-pddikti-container { text-align: center; margin: 25px 0 15px 0; }
+        .btn-pddikti { display: inline-block; padding: 12px 24px; background-color: #f57c00; color: white; text-decoration: none; font-weight: bold; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-size: 13px; transition: 0.2s; }
+        .btn-pddikti:hover { background-color: #e65100; transform: translateY(-1px); }
 
-<title>SIVIL - Verifikasi Ijazah</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-    background:#f2f3f7;
-    color:#222;
-    font-size:18px;
-    font-weight:650;
-}
-
-/* ================= HEADER ================= */
-
-.header{
-    background:#0057b8;
-    padding:28px 22px 34px;
-    color:white;
-}
-
-.header-top{
-    display:flex;
-    align-items:flex-start;
-    gap:18px;
-}
-
-/* LOGO */
-
-.logo{
-    width:86px;
-    height:86px;
-    border-radius:50%;
-    background:white;
-    padding:4px;
-    object-fit:cover;
-    flex-shrink:0;
-}
-
-/* TITLE */
-
-.title{
-    flex:1;
-}
-
-.title h1{
-    font-size:28px;
-    line-height:1.3;
-    font-weight:900;
-}
-
-.title p{
-    margin-top:12px;
-    font-size:19px;
-    line-height:1.8;
-    color:#dce7ff;
-    font-weight:700;
-}
-
-/* SIVIL */
-
-.sivil{
-    margin-top:34px;
-}
-
-.sivil h2{
-    font-size:82px;
-    line-height:1;
-    font-weight:900;
-    letter-spacing:5px;
-}
-
-.sivil p{
-    margin-top:10px;
-    font-size:18px;
-    letter-spacing:2px;
-    color:#e6eeff;
-    font-weight:700;
-}
-
-/* ================= CONTENT ================= */
-
-.container{
-    padding:20px;
-}
-
-.card{
-    background:white;
-    border-radius:24px;
-    padding:28px;
-    margin-bottom:20px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-}
-
-/* VERIFIED */
-
-.check{
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    background:#18a94b;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-size:80px;
-    font-weight:bold;
-    margin-bottom:24px;
-}
-
-.verified-text h2{
-    color:#18a94b;
-    font-size:36px;
-    line-height:1.3;
-    margin-bottom:18px;
-    font-weight:900;
-}
-
-.verified-text p{
-    font-size:21px;
-    line-height:2;
-    font-weight:700;
-}
-
-/* SECTION TITLE */
-
-.section-title{
-    color:#0057b8;
-    font-size:28px;
-    margin-bottom:24px;
-    font-weight:900;
-}
-
-/* TABLE */
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-table tr{
-    border-bottom:1px solid #e8e8e8;
-}
-
-table td{
-    padding:18px 0;
-    font-size:19px;
-    vertical-align:top;
-    font-weight:700;
-}
-
-table td:first-child{
-    width:45%;
-    color:#555;
-    font-weight:800;
-}
-
-/* INFO */
-
-.info-grid{
-    display:grid;
-    grid-template-columns:auto 12px 1fr;
-    gap:18px 14px;
-    font-size:19px;
-    font-weight:700;
-}
-
-.status{
-    color:#0c9f44;
-    font-weight:900;
-}
-
-/* TTE */
-
-.tte-box{
-    display:flex;
-    justify-content:space-between;
-    gap:18px;
-    align-items:center;
-}
-
-.tte-left{
-    display:flex;
-    gap:16px;
-}
-
-.shield{
-    width:70px;
-    height:70px;
-    border-radius:18px;
-    background:#0057b8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-size:34px;
-}
-
-.tte-text h3{
-    color:#0057b8;
-    font-size:25px;
-    margin-bottom:10px;
-    font-weight:900;
-}
-
-.tte-text p{
-    font-size:18px;
-    line-height:1.9;
-    font-weight:700;
-}
-
-/* LOGO BSRE */
-
-.bsre-logo{
-    width:130px;
-    height:auto;
-    object-fit:contain;
-}
-
-/* ================= FOOTER ================= */
-
-.footer{
-    background:#0057b8;
-    color:white;
-    text-align:center;
-    padding:34px 24px 44px;
-    margin-top:34px;
-}
-
-.footer p{
-    color:#dfe8ff;
-    font-size:17px;
-    line-height:2;
-    font-weight:700;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:600px){
-
-    body{
-        font-size:16px;
-    }
-
-    .title h1{
-        font-size:22px;
-    }
-
-    .title p{
-        font-size:16px;
-    }
-
-    .sivil h2{
-        font-size:62px;
-    }
-
-    .sivil p{
-        font-size:15px;
-    }
-
-    .verified-text h2{
-        font-size:28px;
-    }
-
-    .verified-text p{
-        font-size:18px;
-    }
-
-    table td{
-        font-size:16px;
-    }
-
-    .info-grid{
-        font-size:16px;
-    }
-
-    .tte-box{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .tte-text h3{
-        font-size:22px;
-    }
-
-    .tte-text p{
-        font-size:16px;
-    }
-
-    .bsre-logo{
-        width:110px;
-    }
-
-}
-
-</style>
+        .usk-footer { background-color: var(--usk-dark); color: white; padding: 12px 20px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
+    </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-
-<div class="header">
-
-    <div class="header-top">
-
-        <!-- LOGO -->
-        <img src="./sivillogo.png" class="logo" alt="Logo SIVIL">
-
-        <!-- TITLE -->
-        <div class="title">
-
-            <h1>
-                SISTEM VERIFIKASI<br>
-                DOKUMEN DIGITAL
-            </h1>
-
-            <p>
-                Kementerian Pendidikan,
-                Kebudayaan, Riset dan Teknologi
-            </p>
-
-        </div>
-
-    </div>
-
-    <!-- SIVIL -->
-
-    <div class="sivil">
-
-        <h2>SIVIL</h2>
-
-        <p>
-            SISTEM VERIFIKASI IJAZAH ELEKTRONIK
-        </p>
-
-    </div>
-
-</div>
-
-<!-- CONTENT -->
-
-<div class="container">
-
-    <!-- VERIFIED -->
-
-    <div class="card">
-
-        <div class="check">✓</div>
-
-        <div class="verified-text">
-
-            <h2>
-                DOKUMEN ASLI / VERIFIED
-            </h2>
-
-            <p>
-                Data ini menyatakan bahwa ijazah dengan nomor tersebut di bawah ini adalah sah dan diterbitkan oleh <strong>Universitas Syiah Kuala</strong>.
-            </p>
-
-        </div>
-
-    </div>
-
-    <!-- DETAIL -->
-
-    <div class="card">
-
-        <h2 class="section-title">
-            DETAIL DATA LULUSAN
-        </h2>
-
-        <table>
-
-            <tr>
-                <td>Nama Lengkap</td>
-                <td>MUHAMMAD IQBAL</td>
-            </tr>
-
-            <tr>
-                <td>Nomor Induk Mahasiswa</td>
-                <td>2001102010031</td>
-            </tr>
-
-            <tr>
-                <td>Nomor Ijazah Nasional</td>
-                <td>4030120250000845</td>
-            </tr>
-
-            <tr>
-                <td>Program Studi / Jenjang</td>
-                <td>S1 - Manajemen</td>
-            </tr>
-
-            <tr>
-                <td>Tanggal Kelulusan</td>
-                <td>6 Januari 2025</td>
-            </tr>
-
-        </table>
-
-    </div>
-
-    <!-- INFORMASI -->
-
-    <div class="card">
-
-        <h2 class="section-title">
-            INFORMASI DOKUMEN
-        </h2>
-
-        <div class="info-grid">
-
-            <strong>Tanggal Terbit</strong>
-            <div>:</div>
-            <div>1 Februari 2025</div>
-
-            <strong>Perguruan Tinggi</strong>
-            <div>:</div>
-            <div>Universitas Syiah Kuala</div>
-
-            <strong>Fakultas</strong>
-            <div>:</div>
-            <div>Fakultas Ekonomi Dan Bisnis</div>
-
-            <strong>Jenis Ijazah</strong>
-            <div>:</div>
-            <div>Sarjana (S1)</div>
-
-            <strong>Status Verifikasi</strong>
-            <div>:</div>
-            <div class="status">✔ TERVERIFIKASI</div>
-
-        </div>
-
-    </div>
-
-    <!-- TTE -->
-
-    <div class="card">
-
-        <h2 class="section-title">
-            STATUS TANDA TANGAN ELEKTRONIK (TTE)
-        </h2>
-
-        <div class="tte-box">
-
-            <div class="tte-left">
-
-                <div class="shield">🔒</div>
-
-                <div class="tte-text">
-
-                    <h3>
-                        TANDA TANGAN ELEKTRONIK VALID
-                    </h3>
-
-                    <p>
-                        Dokumen ini telah ditandatangani secara elektronik dengan sertifikat yang diterbitkan oleh BSrE (Badan Siber dan Sandi Negara).
-                    </p>
-
+    <div class="usk-verif-page">
+        <div class="usk-header">
+            <div class="usk-header-left">
+                <img src="https://pddikti.kemdikbud.go.id/assets/img/logo-tutwuri.png" alt="Logo">
+                <div>
+                    <h2>UNIVERSITAS SYIAH KUALA</h2>
+                    <p>DARUSSALAM, BANDA ACEH</p>
                 </div>
-
+            </div>
+            <div class="usk-header-right">
+                <strong>SISTEM VERIFIKASI IJAZAH DIGITAL</strong><br>
+                USK - Secara Elektronik
+            </div>
+        </div>
+        
+        <div class="content-body">
+            <div class="alert-success-box">
+                <div class="badge-check">✓</div>
+                <div class="badge-text">
+                    <h4>DOKUMEN ASLI / VERIFIED</h4>
+                    <p>Data ini menyatakan bahwa ijazah dengan nomor tersebut di bawah ini adalah sah dan diterbitkan oleh Universitas Syiah Kuala.</p>
+                </div>
             </div>
 
-            <!-- LOGO BSRE -->
-            <img src="./logo.png" class="bsre-logo" alt="Logo BSrE">
+            <div class="block-title">🎓 DETAIL DATA LULUSAN</div>
+            <table class="info-table">
+                <tr><td>Nama Lengkap</td><td>:</td><td>MUHAMMAD IQBAL</td></tr>
+                <tr><td>Nomor Induk Mahasiswa</td><td>:</td><td>2001102010031</td></tr>
+                <tr><td>Nomor Ijazah Nasional</td><td>:</td><td>4030120250000845</td></tr>
+                <tr><td>Program Studi / Jenjang</td><td>:</td><td>S1 - Manajemen</td></tr>
+                <tr><td>Tanggal Kelulusan</td><td>:</td><td>6 Januari 2025</td></tr>
+            </table>
 
+            <div class="block-title">📄 INFORMASI DOKUMEN</div>
+            <table class="info-table">
+                <tr><td>Tanggal Terbit</td><td>:</td><td>1 Februari 2025</td></tr>
+                <tr><td>Perguruan Tinggi</td><td>:</td><td>Universitas Syiah Kuala</td></tr>
+                <tr><td>Fakultas</td><td>:</td><td>Fakultas Ekonomi Dan Bisnis</td></tr>
+                <tr><td>Jenis Ijazah</td><td>:</td><td>Sarjana (S1)</td></tr>
+                <tr><td>Status Verifikasi</td><td>:</td><td style="color: #4caf50;">✓ TERVERIFIKASI</td></tr>
+            </table>
+
+            <div class="block-title">🔒 STATUS TANDA TANGAN ELEKTRONIK (TTE)</div>
+            <div class="tte-box">
+                <div class="tte-left">
+                    <span style="font-size: 18px;">🛡️</span>
+                    <div>
+                        <strong>TANDA TANGAN ELEKTRONIK VALID</strong>
+                        Dokumen telah ditandatangani digital menggunakan sertifikat resmi BSrE.
+                    </div>
+                </div>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=VALID-TTE-USK" alt="TTE Sign">
+            </div>
+
+            <div class="btn-pddikti-container">
+                <a href="https://pddikti.kemdikbud.go.id/" target="_blank" class="btn-pddikti">
+                    🔍 CEK DATA MAHASISWA DI PDDIKTI RESMI
+                </a>
+            </div>
         </div>
 
+        <div class="usk-footer">
+            <div>UNIVERSITAS SYIAH KUALA<br><small>Darussalam, Banda Aceh</small></div>
+            <div>www.usk.ac.id</div>
+            <div>© 2026 USK</div>
+        </div>
     </div>
-
-</div>
-
-<!-- FOOTER -->
-
-<div class="footer">
-
-    <p>
-        Sistem ini dikelola oleh Kementerian Pendidikan,
-        Kebudayaan, Riset dan Teknologi
-    </p>
-
-    <p>
-        Data bersumber dari Pangkalan Data Pendidikan Tinggi (PDDikti)
-    </p>
-
-    <br>
-
-    <p>
-        © 2025 - SIVIL Kemendikbudristek
-    </p>
-
-</div>
 
 </body>
 </html>
