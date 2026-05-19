@@ -1,26 +1,510 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi Ijazah Digital</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; max-width: 300px; border-top: 5px solid #28a745; }
-        .check-icon { font-size: 50px; color: #28a745; }
-        h2 { color: #333; margin: 10px 0; }
-        p { color: #666; font-size: 14px; }
-        .status { font-weight: bold; color: #28a745; background: #e8f5e9; padding: 5px 10px; border-radius: 20px; display: inline-block; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIVIL - Verifikasi Ijazah</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f2f3f7;
+    color:#222;
+    font-size:18px;
+    font-weight:650;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    background:#0057b8;
+    padding:28px 22px 34px;
+    color:white;
+}
+
+.header-top{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+}
+
+/* LOGO */
+
+.logo{
+    width:86px;
+    height:86px;
+    border-radius:50%;
+    background:white;
+    padding:4px;
+    object-fit:cover;
+    flex-shrink:0;
+}
+
+/* TITLE */
+
+.title{
+    flex:1;
+}
+
+.title h1{
+    font-size:28px;
+    line-height:1.3;
+    font-weight:900;
+}
+
+.title p{
+    margin-top:12px;
+    font-size:19px;
+    line-height:1.8;
+    color:#dce7ff;
+    font-weight:700;
+}
+
+/* SIVIL */
+
+.sivil{
+    margin-top:34px;
+}
+
+.sivil h2{
+    font-size:82px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:5px;
+}
+
+.sivil p{
+    margin-top:10px;
+    font-size:18px;
+    letter-spacing:2px;
+    color:#e6eeff;
+    font-weight:700;
+}
+
+/* ================= CONTENT ================= */
+
+.container{
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:24px;
+    padding:28px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* VERIFIED */
+
+.check{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:#18a94b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:80px;
+    font-weight:bold;
+    margin-bottom:24px;
+}
+
+.verified-text h2{
+    color:#18a94b;
+    font-size:36px;
+    line-height:1.3;
+    margin-bottom:18px;
+    font-weight:900;
+}
+
+.verified-text p{
+    font-size:21px;
+    line-height:2;
+    font-weight:700;
+}
+
+/* SECTION TITLE */
+
+.section-title{
+    color:#0057b8;
+    font-size:28px;
+    margin-bottom:24px;
+    font-weight:900;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table tr{
+    border-bottom:1px solid #e8e8e8;
+}
+
+table td{
+    padding:18px 0;
+    font-size:19px;
+    vertical-align:top;
+    font-weight:700;
+}
+
+table td:first-child{
+    width:45%;
+    color:#555;
+    font-weight:800;
+}
+
+/* INFO */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:auto 12px 1fr;
+    gap:18px 14px;
+    font-size:19px;
+    font-weight:700;
+}
+
+.status{
+    color:#0c9f44;
+    font-weight:900;
+}
+
+/* TTE */
+
+.tte-box{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    align-items:center;
+}
+
+.tte-left{
+    display:flex;
+    gap:16px;
+}
+
+.shield{
+    width:70px;
+    height:70px;
+    border-radius:18px;
+    background:#0057b8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:34px;
+}
+
+.tte-text h3{
+    color:#0057b8;
+    font-size:25px;
+    margin-bottom:10px;
+    font-weight:900;
+}
+
+.tte-text p{
+    font-size:18px;
+    line-height:1.9;
+    font-weight:700;
+}
+
+/* LOGO BSRE */
+
+.bsre-logo{
+    width:130px;
+    height:auto;
+    object-fit:contain;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    background:#0057b8;
+    color:white;
+    text-align:center;
+    padding:34px 24px 44px;
+    margin-top:34px;
+}
+
+.footer p{
+    color:#dfe8ff;
+    font-size:17px;
+    line-height:2;
+    font-weight:700;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+    body{
+        font-size:16px;
+    }
+
+    .title h1{
+        font-size:22px;
+    }
+
+    .title p{
+        font-size:16px;
+    }
+
+    .sivil h2{
+        font-size:62px;
+    }
+
+    .sivil p{
+        font-size:15px;
+    }
+
+    .verified-text h2{
+        font-size:28px;
+    }
+
+    .verified-text p{
+        font-size:18px;
+    }
+
+    table td{
+        font-size:16px;
+    }
+
+    .info-grid{
+        font-size:16px;
+    }
+
+    .tte-box{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .tte-text h3{
+        font-size:22px;
+    }
+
+    .tte-text p{
+        font-size:16px;
+    }
+
+    .bsre-logo{
+        width:110px;
+    }
+
+}
+
+</style>
 </head>
+
 <body>
-    <div class="card">
-        <div class="check-icon">✓</div>
-        <h2>Data Terverifikasi</h2>
-        <p>Ijazah ini telah divalidasi oleh sistem dan dinyatakan <strong>ASLI</strong>.</p>
-        <div class="status">VALID / ORIGINAL</div>
-        <hr>
-        <p style="font-size: 12px;">ID Verifikasi: ID-1778866751</p>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <div class="header-top">
+
+        <!-- LOGO -->
+        <img src="./sivillogo.png" class="logo" alt="Logo SIVIL">
+
+        <!-- TITLE -->
+        <div class="title">
+
+            <h1>
+                SISTEM VERIFIKASI<br>
+                DOKUMEN DIGITAL
+            </h1>
+
+            <p>
+                Kementerian Pendidikan,
+                Kebudayaan, Riset dan Teknologi
+            </p>
+
+        </div>
+
     </div>
+
+    <!-- SIVIL -->
+
+    <div class="sivil">
+
+        <h2>SIVIL</h2>
+
+        <p>
+            SISTEM VERIFIKASI IJAZAH ELEKTRONIK
+        </p>
+
+    </div>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="container">
+
+    <!-- VERIFIED -->
+
+    <div class="card">
+
+        <div class="check">✓</div>
+
+        <div class="verified-text">
+
+            <h2>
+                DOKUMEN ASLI / VERIFIED
+            </h2>
+
+            <p>
+                Data ini menyatakan bahwa ijazah dengan nomor tersebut di bawah ini adalah sah dan diterbitkan oleh <strong>Universitas Syiah Kuala</strong>.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- DETAIL -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            DETAIL DATA LULUSAN
+        </h2>
+
+        <table>
+
+            <tr>
+                <td>Nama Lengkap</td>
+                <td>MUHAMMAD IQBAL</td>
+            </tr>
+
+            <tr>
+                <td>Nomor Induk Mahasiswa</td>
+                <td>2001102010031</td>
+            </tr>
+
+            <tr>
+                <td>Nomor Ijazah Nasional</td>
+                <td>4030120250000845</td>
+            </tr>
+
+            <tr>
+                <td>Program Studi / Jenjang</td>
+                <td>S1 - Manajemen</td>
+            </tr>
+
+            <tr>
+                <td>Tanggal Kelulusan</td>
+                <td>6 Januari 2025</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- INFORMASI -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            INFORMASI DOKUMEN
+        </h2>
+
+        <div class="info-grid">
+
+            <strong>Tanggal Terbit</strong>
+            <div>:</div>
+            <div>1 Februari 2025</div>
+
+            <strong>Perguruan Tinggi</strong>
+            <div>:</div>
+            <div>Universitas Syiah Kuala</div>
+
+            <strong>Fakultas</strong>
+            <div>:</div>
+            <div>Fakultas Ekonomi Dan Bisnis</div>
+
+            <strong>Jenis Ijazah</strong>
+            <div>:</div>
+            <div>Sarjana (S1)</div>
+
+            <strong>Status Verifikasi</strong>
+            <div>:</div>
+            <div class="status">✔ TERVERIFIKASI</div>
+
+        </div>
+
+    </div>
+
+    <!-- TTE -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            STATUS TANDA TANGAN ELEKTRONIK (TTE)
+        </h2>
+
+        <div class="tte-box">
+
+            <div class="tte-left">
+
+                <div class="shield">🔒</div>
+
+                <div class="tte-text">
+
+                    <h3>
+                        TANDA TANGAN ELEKTRONIK VALID
+                    </h3>
+
+                    <p>
+                        Dokumen ini telah ditandatangani secara elektronik dengan sertifikat yang diterbitkan oleh BSrE (Badan Siber dan Sandi Negara).
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- LOGO BSRE -->
+            <img src="./logo.png" class="bsre-logo" alt="Logo BSrE">
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    <p>
+        Sistem ini dikelola oleh Kementerian Pendidikan,
+        Kebudayaan, Riset dan Teknologi
+    </p>
+
+    <p>
+        Data bersumber dari Pangkalan Data Pendidikan Tinggi (PDDikti)
+    </p>
+
+    <br>
+
+    <p>
+        © 2025 - SIVIL Kemendikbudristek
+    </p>
+
+</div>
+
 </body>
 </html>
+

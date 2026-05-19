@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Verifikasi Ijazah Digital - USK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{ margin:0; padding:0; box-sizing:border-box; }
+        html,body{
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+            background:#f3f4f6; color:#111827; min-height:100vh; padding:15px;
+        }
+        .container-utama{
+            width:100%; max-width:1100px; margin:auto; background:#ffffff;
+            box-shadow:0 4px 14px rgba(0,0,0,0.08); overflow:hidden; border-radius:8px;
+        }
+        .header{ background:#004799; color:white; padding:22px; border-bottom:5px solid #f59e0b; }
+        .header-konten{ display:flex; justify-content:space-between; align-items:center; gap:20px; }
+        .header-left{ display:flex; align-items:center; gap:14px; }
+        .logo-usk{
+            width:65px; height:65px; background:white; border-radius:50%;
+            padding:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .logo-usk img{ width:100%; height:100%; object-fit:contain; }
+        .header-text h1{ font-size:22px; font-weight:800; line-height:1.2; }
+        .header-text p{ font-size:13px; opacity:0.9; margin-top:3px; }
+        .header-right{ text-align:right; border-left:1px solid rgba(255,255,255,0.3); padding-left:18px; }
+        .header-right h2{ font-size:15px; font-weight:800; }
+        .header-right p{ font-size:11px; opacity:0.8; margin-top:4px; }
+        .konten{ padding:24px; }
+        .banner-verified{
+            border:1px solid #22c55e; background:#f0fdf4; border-radius:8px;
+            padding:16px; display:flex; align-items:flex-start; gap:12px; margin-bottom:20px;
+        }
+        .icon-check{
+            width:28px; height:28px; border-radius:50%; background:#16a34a;
+            color:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .banner-text h3{ color:#15803d; font-size:16px; font-weight:800; }
+        .banner-text p{ font-size:14px; margin-top:4px; line-height:1.5; }
+        .card{ background:white; border:1px solid #e5e7eb; border-radius:8px; padding:20px; margin-bottom:20px; position:relative; }
+        .card-title{
+            display:flex; align-items:center; gap:8px; color:#004799; font-size:14px;
+            font-weight:800; border-bottom:1px solid #e5e7eb; padding-bottom:10px; margin-bottom:12px; text-transform:uppercase;
+        }
+        .row{ display:flex; padding:14px 4px; border-bottom:1px solid #f3f4f6; font-size:15px; }
+        .label{ width:35%; color:#4b5563; font-weight:600; }
+        .value{ width:65%; color:#111827; font-weight:800; }
+        .watermark-bg{
+            position:absolute; right:40px; top:50%; transform:translateY(-50%);
+            width:130px; opacity:0.06; pointer-events:none; filter: grayscale(100%);
+        }
+        .info-row{ display:flex; padding:12px 4px; font-size:15px; }
+        .info-label{ width:200px; color:#4b5563; font-weight:600; }
+        .info-value{ flex:1; font-weight:800; color:#111827; }
+        
+        .tte-box{
+            border:1px solid #e5e7eb; border-radius:8px; padding:20px;
+            display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:white;
+        }
+        .tte-info{ display:flex; gap:14px; align-items:flex-start; flex: 1; min-width: 250px; }
+        .icon-lock{
+            width:38px; height:38px; background:#15803d; color:white;
+            border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .tte-text h5{ color:#004799; font-size:14px; font-weight:800; }
+        .tte-text h6{ color:#16a34a; font-size:15px; margin-top:3px; font-weight:800; }
+        .tte-text p{ margin-top:5px; font-size:13px; line-height:1.5; color:#4b5563; }
+
+        /* ===================================================
+           CSS LOGO BSrE - WARNA 100% SOLID & TAJAM
+        =================================================== */
+        .logo-bsre{
+            width:85px;  
+            height:85px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-shrink:0;
+            background:transparent;
+            overflow:hidden;
+            padding:0;
+            border:none;
+            box-shadow:none;
+        }
+
+        .logo-bsre img{
+            width:100%;
+            height:100%;
+            object-fit:contain;
+            opacity: 1; 
+            image-rendering:auto;
+            image-rendering:-webkit-optimize-contrast;
+            transform:translateZ(0);
+            backface-visibility:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        /* =========================
+           SEMUA GAMBAR HD FIX RESEET
+        ========================= */
+        img, svg {
+            image-rendering:auto;
+            image-rendering:-webkit-optimize-contrast;
+            transform:translateZ(0);
+            backface-visibility:hidden;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer{ background:#004799; color:white; padding:18px 24px; }
+        .footer-konten{ display:flex; justify-content:space-between; align-items:center; gap:14px; }
+        .footer-left h4{ font-size:13px; font-weight:800; }
+        .footer-left p{ font-size:11px; opacity:0.8; margin-top:2px; }
+        .footer-center{ font-size:12px; }
+        .footer-right{ font-size:11px; opacity:0.7; }
+
+        @media(max-width:768px){
+            body{ padding:0; }
+            .container-utama{ border-radius:0; max-width:100%; }
+            .header-konten{ flex-direction:column; align-items:flex-start; }
+            .header-right{ border-left:none; padding-left:0; text-align:left; }
+            .row{ flex-direction:column; gap:4px; }
+            .label, .value{ width:100%; }
+            .info-row{ flex-direction:column; gap:4px; }
+            .info-label, .info-value{ width:100%; }
+            .tte-box{ flex-direction:column; align-items:center; text-align:center; }
+            .tte-info{ flex-direction:column; align-items:center; min-width: 100%; }
+            .logo-bsre { align-self: center; width: 85px; height: 85px; margin-top: 10px; }
+            .footer-konten{ flex-direction:column; align-items:flex-start; gap:10px; }
+            .watermark-bg{ width:90px; right:20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container-utama">
+    <div class="header">
+        <div class="header-konten">
+            <div class="header-left">
+                <% if (logoUskBase64) { %>
+                <div class="logo-usk">
+                    <img src="<%= logoUskBase64 %>" alt="Logo USK">
+                </div>
+                <% } %>
+                <div class="header-text">
+                    <h1>UNIVERSITAS SYIAH KUALA</h1>
+                    <p>DARUSSALAM, BANDA ACEH</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <h2>SISTEM VERIFIKASI IJAZAH DIGITAL</h2>
+                <p>USK - Secara Elektronik</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="konten">
+        <div class="banner-verified">
+            <div class="icon-check"><i class="fas fa-check"></i></div>
+            <div class="banner-text">
+                <h3>DOKUMEN ASLI / VERIFIED</h3>
+                <p>Data ini menyatakan bahwa ijazah dengan nomor tersebut adalah sah dan diterbitkan oleh Universitas Syiah Kuala.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-graduation-cap"></i> Detail Data Lulusan</div>
+            <div class="row">
+                <div class="label">Nama Lengkap</div>
+                <div class="value" style="text-transform:uppercase;"><%= dataLulusan.namaLengkap %></div>
+            </div>
+            <div class="row">
+                <div class="label">Nomor Induk Mahasiswa</div>
+                <div class="value"><%= dataLulusan.nim %></div>
+            </div>
+            <div class="row">
+                <div class="label">Nomor Ijazah Nasional</div>
+                <div class="value" style="font-family:monospace;"><%= dataLulusan.nomorIjazah %></div>
+            </div>
+            <div class="row">
+                <div class="label">Program Studi / Jenjang</div>
+                <div class="value"><%= dataLulusan.programStudi %></div>
+            </div>
+            <div class="row" style="border-bottom:none;">
+                <div class="label">Tanggal Kelulusan</div>
+                <div class="value"><%= dataLulusan.tanggalKelulusan %></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-file-alt"></i> Informasi Dokumen</div>
+            <% if (logoUskBase64) { %>
+            <img class="watermark-bg" src="<%= logoUskBase64 %>" alt="Watermark">
+            <% } %>
+            <div class="info-row">
+                <div class="info-label">Tanggal Terbit</div>
+                <div class="info-value">: <%= informasiDokumen.tanggalTerbit %></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Perguruan Tinggi</div>
+                <div class="info-value">: <%= informasiDokumen.perguruanTinggi %></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Fakultas</div>
+                <div class="info-value">: <%= informasiDokumen.fakultas %></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Jenis Ijazah</div>
+                <div class="info-value">: <%= informasiDokumen.jenisIjazah %></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Status Verifikasi</div>
+                <div class="info-value" style="color:#16a34a;">
+                    : <i class="fas fa-check-circle"></i> <%= informasiDokumen.statusVerifikasi %>
+                </div>
+            </div>
+        </div>
+
+        <div class="tte-box">
+            <div class="tte-info">
+                <div class="icon-lock">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="tte-text">
+                    <h5>STATUS TANDA TANGAN ELEKTRONIK (TTE)</h5>
+                    <h6>TANDA TANGAN ELEKTRONIK VALID</h6>
+                    <p>
+                        Dokumen telah ditandatangani digital menggunakan
+                        sertifikat resmi BSrE.
+                    </p>
+                </div>
+            </div>
+
+            <% if (logoBsreBase64) { %>
+            <div class="logo-bsre">
+                <img src="<%= logoBsreBase64 %>" alt="BSrE">
+            </div>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-konten">
+            <div class="footer-left">
+                <h4>UNIVERSITAS SYIAH KUALA</h4>
+                <p>Darussalam, Banda Aceh</p>
+            </div>
+            <div class="footer-center"><i class="fas fa-globe"></i> www.usk.ac.id</div>
+            <div class="footer-right">© 2026 USK</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
