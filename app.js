@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 1. RUTE HALAMAN FORM INPUT DATA
 app.get('/', (req, res) => {
-    res.render('form');
+    res.render('verifikasi');
 });
 
 // 2. RUTE HALAMAN HASIL VERIFIKASI (Menerima input user)
