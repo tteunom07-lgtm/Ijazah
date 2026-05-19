@@ -6,9 +6,9 @@
     <title>Verifikasi Elektronik Ijazah - PDDikti</title>
     <script>
         window.addEventListener("DOMContentLoaded", () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const cekPddikti = urlParams.get("pddikti");
-            if (cekPddikti !== "usk_verify_ijazahtte2025") {
+            // Membaca karakter setelah tanda pagar (#)
+            const cekPddikti = window.location.hash;
+            if (cekPddikti !== "#pddikti=usk_verify_ijazahtte2025") {
                 document.body.innerHTML = "<div style='text-align:center;padding:50px;font-family:sans-serif;'><h1 style='color:#d32f2f;'>🚫 AKSES DITOLAK</h1><p>Dokumen tidak dapat diakses secara manual. Silakan lakukan pemindaian ulang pada QR Code resmi untuk memverifikasi.</p></div>";
             }
         });
