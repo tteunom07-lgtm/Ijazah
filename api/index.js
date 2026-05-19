@@ -38,7 +38,7 @@ app.post('/cetak', (req, res) => {
     res.render('ijazah', { data: dataIjazah });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server berjalan di http://localhost:${PORT}`);
+  {
+    console.log(`Server berjalan di module.exports = app;}`);
 });
 
